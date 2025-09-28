@@ -1,17 +1,18 @@
 import Container from "./components/Container";
+import Form from "./components/Form";
 
 export default function Home() {
   return (
     <div className=" bg-black text-white">
       <Container>
-        <form action="">
-          <div className="flex justify-between items-center">
-            <label htmlFor=""></label>
-            <input type="text" value="" placeholder="Digite sua Tarefa" className="bg-amber-50 m-1 w-full"/>
-            <button className="bg-gray-500 px-3">Enviar</button>
-          </div>
-        </form>
+        <Form/>
+        <h1 className="text-center">Tarefas a cumprir</h1>
+        <div className="bg-gray-600 m-1 p-1 flex">
+          <input type="checkbox" name="" id="" className="mx-1"/>
+          <p>Criar um portifolio</p>
+        </div>
       </Container>
+      
     </div>
   );
 }
