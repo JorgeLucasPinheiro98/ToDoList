@@ -8,9 +8,17 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
+type dados = {
+    id: number
+    nome: string
+}
+
+const dataBase:dados[] = []
+
 app.post('/', (req: Request, res: Response) => {
-    const data = req.body;
-    console.log(data)
+    const data: dados = req.body;
+    dataBase.push(data)
+    console.log(data.id, data.nome)
 
     if(!data) {
         return res.status(400).json({mensagem: 'Informe os dados'})
@@ -19,7 +27,7 @@ app.post('/', (req: Request, res: Response) => {
 });
 
 app.get('/', (req: Request<{}, {}, FormData>, res: Response) => {
-    res.send('Server runing')
+    res.send(dataBase)
 });
 
 app.listen(port, () => {
