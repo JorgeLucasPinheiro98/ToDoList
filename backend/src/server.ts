@@ -8,12 +8,7 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-interface FormData {
-    id: number
-    nome: string    
-}
-
-app.post('/', (req: Request<{}, {}, FormData>, res: Response) => {
+app.post('/', (req: Request, res: Response) => {
     const data = req.body;
     console.log(data)
 
