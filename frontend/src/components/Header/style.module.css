@@ -1,3 +1,10 @@
 .header {
     background-color: rgb(185, 184, 184);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.header > * {
+    padding: 10px;
 }
