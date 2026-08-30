@@ -6,4 +6,16 @@ test("Deve criar um usuario", () => {
         "john@email.com", 
         "ASDqwe123");
     expect(user).toBeDefined();
+    expect(user.name).toBe("John Doe")
+    expect(user.email).toBe("john@email.com")
+    expect(user.password).toBe("ASDqwe123")
+})
+
+test("Não deve criar um conta sem nome", () => {
+    const user = new User(
+        "", 
+        "john@email.com", 
+        "ASDqwe123");
+    expect(user).toBeDefined();
+    expect(() => user.validate()).rejects.toThrow(new Error("Invalid Name"))
 })
