@@ -19,3 +19,21 @@ test("Não deve criar um conta sem nome", () => {
     expect(user).toBeDefined();
     expect(() => user.validate()).rejects.toThrow(new Error("Invalid Name"))
 })
+
+test("Não deve criar um conta sem emai correto", () => {
+    const user = new User(
+        "John Doe", 
+        "", 
+        "ASDqwe123");
+    expect(user).toBeDefined();
+    expect(() => user.validate()).rejects.toThrow(new Error("Invalid Email"))
+})
+
+test("Não deve criar um conta sem senha correta", () => {
+    const user = new User(
+        "John Doe", 
+        "john@email.com", 
+        "");
+    expect(user).toBeDefined();
+    expect(() => user.validate()).rejects.toThrow(new Error("Invalid Password"))
+})

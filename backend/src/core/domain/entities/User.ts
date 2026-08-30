@@ -19,6 +19,10 @@ export class User implements IUser{
     }
 
     async validate() {
-        if(this.name.length < 4) throw new Error("Invalid Name");
+        if(!this.name) throw new Error("Invalid Name");
+
+        if(!this.email) throw new Error("Invalid Email");
+
+        if(!this.password) throw new Error("Invalid Password")
     }
 }
