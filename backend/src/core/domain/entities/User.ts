@@ -23,6 +23,6 @@ export class User implements IUser{
 
         if(!this.email) throw new Error("Invalid Email");
 
-        if(!this.password) throw new Error("Invalid Password")
+        if(!this.password) throw new Error("Invalid Password");
     }
 }
