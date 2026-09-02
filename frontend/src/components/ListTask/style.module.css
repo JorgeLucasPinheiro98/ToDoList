@@ -1,0 +1,74 @@
+.container {
+    background-color: darkblue;
+    width: 70vh;
+    height: 70vh;
+    border-radius: 5px;
+}
+
+.back {
+    background-color: rgb(63, 63, 245);
+    border-radius: 3px;
+    margin: 5px;
+}
+
+.title {
+    color: white;
+    text-align: center;
+    margin: 10px;
+    font-size: x-large;
+}
+
+.addTask {
+    display: flex;
+    justify-content: center;
+    border-color: black;
+    color: white;
+}
+
+.addTask input {
+    width: 70%;
+    background-color: rgb(6, 6, 85);
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.addTask button {
+    width: 30%;
+    background-color: rgb(6, 6, 85);
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.tasks {
+    display: flex;
+    color: white;
+    margin: 3px;
+}
+
+.tasks p {
+    width: 80%;
+    background-color: rgb(6, 6, 85);
+    padding: 7px;
+    margin: 2px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.tasks button {
+    width: 5%;
+    background-color: rgb(6, 6, 85);
+    padding: 7px;
+    margin: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#concluir {
+    width: 15%;
+    background-color: rgb(6, 6, 85);
+    padding: 7px;
+    margin: 2px;
+    border-radius: 5px;
+}
