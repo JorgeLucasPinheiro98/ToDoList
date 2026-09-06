@@ -1,10 +1,41 @@
 import style from "./style.module.css"
 
-export function Navegar() {
+interface NavegarProps {
+    onNavigate: (screen: "tasks" | "login" | "register") => void
+  }
+
+export function Navegar({onNavigate}:NavegarProps) {
     return (
         <nav className={style.nav}>
-            <a href="">Entrar</a>
-            <a href="">Cadastrar</a>
+            <a 
+                href="#" 
+                onClick={(e) => {
+                e.preventDefault()
+                onNavigate("tasks")
+                }}
+            >
+                Tarefas
+            </a>
+
+            <a 
+                href="#" 
+                onClick={(e) => {
+                e.preventDefault()
+                onNavigate("login")
+                }}
+            >
+                Login
+            </a>
+
+            <a 
+                href="#" 
+                onClick={(e) => {
+                e.preventDefault()
+                onNavigate("register")
+                }}
+            >
+                Registrar
+            </a>
         </nav>
     )
 }

@@ -2,11 +2,16 @@ import { Logo } from "../Logo";
 import { Navegar } from "../Navegar";
 import style from "./style.module.css"
 
-export function Header() {
+interface HeaderProps {
+    className?: string
+    onNavigate: (screen: "tasks" | "login"| "register") => void
+}
+
+export function Header({onNavigate}:HeaderProps) {
     return (
         <header className={style.header}>
             <Logo/>
-            <Navegar/>
+            <Navegar onNavigate={onNavigate}/>
         </header>
     )
 }
