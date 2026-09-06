@@ -23,7 +23,7 @@ export function Layout () {
 
     return (
         <div>
-            <div>
+            <div className={style.content}>
                 <Header 
                 className={style.container}
                 onNavigate={(screen) => setCurrentScreen(screen)}
