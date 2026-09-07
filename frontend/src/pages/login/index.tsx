@@ -6,11 +6,18 @@ interface IFormInputLogin {
     password: string
 }
 
+interface IFormErrors {
+    userName?: string
+    password?: string
+}
+
 export function Login() {
     const [formData, setFormData] = useState<IFormInputLogin>({
         userName: "",
         password: ""
     })
+
+    const [errors, setErrors] = useState<IFormErrors>({})
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         const {name, value} = e.target
@@ -18,27 +25,71 @@ export function Login() {
             ...prev,
             [name]: value
         }))
+
+        if(errors[name as keyof IFormErrors]) {
+            setErrors((prev) => ({
+                ...prev,
+                [name]: undefined
+            }))
+        }
     }
+
 
     function handleSubmit (e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        console.log("dados do formulário:", formData)
-    }
+        const newErrors: IFormErrors = {}
 
+        if(!formData.userName.trim()) {
+            newErrors.userName = "O nome do Usuário é obrigatótio"
+        }
+
+        if(!formData.password.trim()) {
+            newErrors.password = "A senha é obrigatória"
+        }
+
+        if(Object.keys(newErrors).length > 0) {
+            setErrors(newErrors)
+            return
+        }
+
+        console.log("Dados validados e prontos para envio:", formData)
+    }
 
 
     return (
         <div className={style.container}>
-            <form onSubmit={handleSubmit} className={style.formLogin}>
+            <form onSubmit={handleSubmit} className={style.formLogin} noValidate>
                 <h1 className={style.textLogin}>Login Page</h1>
 
-                <label htmlFor="inputName"></label>
-                <input type="text" placeholder="Username" name="userName" className={style.elementsForm} value={formData.userName} onChange={handleChange}/>
+                <div className={style.inputGroup}>
+                    <label htmlFor="userName">Usuário</label>
+                    <input
+                        id="userName"
+                        type="text"
+                        placeholder="Username"
+                        name="userName"
+                        className={`${style.elementsForm} ${errors.userName ? style.inputError : ""}`}
+                        value={formData.userName}
+                        onChange={handleChange}
+                    />
+                    {errors.userName && <span className={style.errorMessage}>{errors.userName}</span>}
+                </div>
 
-                <label htmlFor="inputPassword"></label>
-                <input type="password" placeholder="Password" name="password" className={style.elementsForm} value={formData.password} onChange={handleChange}/>
+                <div className={style.inputGroup}>
+                    <label htmlFor="password">Senha</label>
+                    <input
+                        id="password"
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        className={`${style.elementsForm} ${errors.password ? style.inputError : ""}`}
+                        value={formData.password}
+                        onChange={handleChange}
+                    />
+                    {errors.password && <span className={style.errorMessage}>{errors.password}</span>}
+                </div>
 
-                <button className={style.elementsForm}>Login</button>
+                <button type="submit" className={style.elementsForm}>Login</button>
 
                 <a href="#" className={style.link}>Esqueceu a senha?</a>
             </form>
