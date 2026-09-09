@@ -6,7 +6,7 @@ interface IFormInputLogin {
     password: string
 }
 
-interface IFormErrors {
+interface IFormErrorsLogin {
     userName?: string
     password?: string
 }
@@ -17,7 +17,7 @@ export function Login() {
         password: ""
     })
 
-    const [errors, setErrors] = useState<IFormErrors>({})
+    const [errors, setErrors] = useState<IFormErrorsLogin>({})
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         const {name, value} = e.target
@@ -26,7 +26,7 @@ export function Login() {
             [name]: value
         }))
 
-        if(errors[name as keyof IFormErrors]) {
+        if(errors[name as keyof IFormErrorsLogin]) {
             setErrors((prev) => ({
                 ...prev,
                 [name]: undefined
@@ -37,7 +37,7 @@ export function Login() {
 
     function handleSubmit (e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const newErrors: IFormErrors = {}
+        const newErrors: IFormErrorsLogin = {}
 
         if(!formData.userName.trim()) {
             newErrors.userName = "O nome do Usuário é obrigatótio"
@@ -53,6 +53,15 @@ export function Login() {
         }
 
         console.log("Dados validados e prontos para envio:", formData)
+        clearValues()
+    }
+
+    function clearValues() {
+        setFormData({
+            userName: "",
+            password: "",
+        })
+        setErrors({})
     }
 
 
