@@ -1,5 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import style from "./style.module.css"
+import { ServiceFetch } from "../../components/service/serviceFetch"
 
 interface IFormInputRegister {
     userName: string
@@ -17,13 +18,19 @@ interface IFormErrorsRegister {
 
 export function Register() {
     const [formData, setFormData] = useState<IFormInputRegister>({
-        userName: "",
-        email: "",
-        password: "",
-        repPassword: ""
+        // userName: "",
+        // email: "",
+        // password: "",
+        // repPassword: ""
+        userName: "1234",
+        email: "123@gmail.com",
+        password: "1234",
+        repPassword: "1234"
     })
 
     const [errors, setErrors] = useState<IFormErrorsRegister>({})
+
+    const connection = new ServiceFetch()
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.target
@@ -67,9 +74,14 @@ export function Register() {
 
         console.log("Dados validados e prontos para envio:", formData)
         clearValues()
+        connection.postUser({
+            userName: formData.userName,
+            email: formData.email,
+            password: formData.password
+        })
     }
 
-    function clearValues() {
+    async function clearValues() {
         setFormData({
             userName: "",
             email: "",
@@ -77,6 +89,9 @@ export function Register() {
             repPassword: ""
         })
         setErrors({})
+        const dados = await connection.getUsers()
+        console.log(dados)
+
     }
 
     return (

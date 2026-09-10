@@ -1,33 +1,31 @@
 import express, { type Request, type Response } from "express";
 import cors from "cors"
-import bodyParser from "body-parser";
 
 const app = express()
 const port = 3000;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json())
 
-type dados = {
-    id: number
-    nome: string
-}
 
-const dataBase:dados[] = []
-
-app.post('/', (req: Request, res: Response) => {
-    const data: dados = req.body;
-    dataBase.push(data)
-    console.log(data.id, data.nome)
-
-    if(!data) {
-        return res.status(400).json({mensagem: 'Informe os dados'})
-    }
-    res.status(200).json({mensagem: 'Dados recebidos'})
+app.get('/users', (req: Request, res: Response) => {
+    const users = [
+        {
+            name: "joao",
+            password: "1234"
+        }
+    ]
+    res.status(200).json(users);
 });
 
-app.get('/', (req: Request<{}, {}, FormData>, res: Response) => {
-    res.send(dataBase)
+app.post('/users', (req: Request, res: Response) => {
+    const data = req.body
+    const user = {
+        userName: data.userName,
+        email: data.email,
+        password: data.password,
+    }
+    res.status(201).json(user);
 });
 
 app.listen(port, () => {
