@@ -1,3 +1,9 @@
+type IUser = {
+    userName: string
+    email: string
+    password: string
+}
+
 export class ServiceFetch {
     connection: string
 
@@ -11,7 +17,7 @@ export class ServiceFetch {
         return users
     }
 
-    async postUser(data) {
+    async postUser(data:IUser) {
         await fetch("http://localhost:3000/users", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
