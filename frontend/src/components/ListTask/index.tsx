@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import style from "./style.module.css"
 
 interface ITask {
@@ -8,8 +8,19 @@ interface ITask {
 }
 
 export function ListTask() {
-    const [tasks, setTasks] = useState<ITask[]>([]);
+    const [tasks, setTasks] = useState<ITask[]>(() => {
+        const saveTasks = localStorage.getItem("@tasks-app:tasks");
+        if(saveTasks) {
+            return JSON.parse(saveTasks);
+        }
+        return [];
+    });
+
     const [inputValue, setInputValue] = useState<string>("");
+
+    useEffect(() => {
+        localStorage.setItem("@tasks-app:tasks", JSON.stringify(tasks))
+    }, [tasks]);
 
     function handleAddItem (e: React.FormEvent) {
         e.preventDefault();

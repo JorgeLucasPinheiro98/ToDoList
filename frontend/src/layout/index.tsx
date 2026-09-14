@@ -12,7 +12,7 @@ export function Layout () {
     function renderContent() {
         switch (currentScreen) {
             case "login":
-                return <Login/>
+                return <Login onLoginSuccess={() => setCurrentScreen("tasks")}/>
             case "register":
                 return <Register/>
             case "tasks":

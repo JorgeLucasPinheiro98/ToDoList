@@ -1,23 +1,30 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import style from "./style.module.css"
+import { ServiceFetch } from "../../service/serviceFetch"
 
 interface IFormInputLogin {
     userName: string
     password: string
 }
 
+interface LoginProps {
+    onLoginSuccess: () => void;
+  }
+
 interface IFormErrorsLogin {
     userName?: string
     password?: string
 }
 
-export function Login() {
+export function Login({ onLoginSuccess }: LoginProps) {
     const [formData, setFormData] = useState<IFormInputLogin>({
-        userName: "",
-        password: ""
+        userName: "testuser",
+        password: "123"
     })
 
     const [errors, setErrors] = useState<IFormErrorsLogin>({})
+
+    const connection = new ServiceFetch()
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         const {name, value} = e.target
@@ -35,7 +42,7 @@ export function Login() {
     }
 
 
-    function handleSubmit (e: FormEvent<HTMLFormElement>) {
+    async function handleSubmit (e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const newErrors: IFormErrorsLogin = {}
 
@@ -52,8 +59,13 @@ export function Login() {
             return
         }
 
-        console.log("Dados validados e prontos para envio:", formData)
-        clearValues()
+        const response = await connection.postLogin(formData)
+        console.log(response)
+        
+        if(response === 200) {
+            clearValues()
+            onLoginSuccess()
+        }
     }
 
     function clearValues() {
