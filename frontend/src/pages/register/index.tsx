@@ -16,12 +16,16 @@ interface IFormErrorsRegister {
     repPassword?: string
 }
 
-export function Register() {
+interface RegisterProps {
+    onRegisterSucess: () => void;
+}
+
+export function Register({ onRegisterSucess }: RegisterProps) {
     const [formData, setFormData] = useState<IFormInputRegister>({
-        userName: "",
-        email: "",
-        password: "",
-        repPassword: ""
+        userName: "1234",
+        email: "1234@email.com",
+        password: "1234",
+        repPassword: "1234"
     })
 
     const [errors, setErrors] = useState<IFormErrorsRegister>({})
@@ -37,7 +41,7 @@ export function Register() {
         }
     }
 
-    function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
         const newErrors: IFormErrorsRegister = {}
 
@@ -68,13 +72,16 @@ export function Register() {
             return
         }
 
-        console.log("Dados validados e prontos para envio:", formData)
-        clearValues()
-        connection.postUser({
+        const response = await connection.postUser({
             userName: formData.userName,
             email: formData.email,
             password: formData.password
         })
+        
+        if(response === 201) {
+            clearValues()
+            onRegisterSucess()
+        }
     }
 
     async function clearValues() {
@@ -85,9 +92,6 @@ export function Register() {
             repPassword: ""
         })
         setErrors({})
-        const dados = await connection.getUsers()
-        console.log(dados)
-
     }
 
     return (

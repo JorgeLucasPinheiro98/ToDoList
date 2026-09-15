@@ -18,8 +18,8 @@ interface IFormErrorsLogin {
 
 export function Login({ onLoginSuccess }: LoginProps) {
     const [formData, setFormData] = useState<IFormInputLogin>({
-        userName: "testuser",
-        password: "123"
+        userName: "",
+        password: ""
     })
 
     const [errors, setErrors] = useState<IFormErrorsLogin>({})
@@ -60,8 +60,7 @@ export function Login({ onLoginSuccess }: LoginProps) {
         }
 
         const response = await connection.postLogin(formData)
-        console.log(response)
-        
+
         if(response === 200) {
             clearValues()
             onLoginSuccess()

@@ -14,7 +14,7 @@ export function Layout () {
             case "login":
                 return <Login onLoginSuccess={() => setCurrentScreen("tasks")}/>
             case "register":
-                return <Register/>
+                return <Register onRegisterSucess={() => setCurrentScreen("login")}/>
             case "tasks":
                 default:
                 return <ListTask/>

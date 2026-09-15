@@ -29,9 +29,8 @@ app.post('/users', async (req: Request, res: Response) => {
         email: data.email,
         password: hash,
     }
-    console.log(user, new Date().getTime())
     users.push(user)
-    res.status(201).json(user);
+    return res.status(201).json({message: "Usuario Registrado com sucesso"});
 });
 
 app.post("/login", async (req: Request, res: Response) => {
