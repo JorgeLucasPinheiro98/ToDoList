@@ -42,28 +42,29 @@ export function Login({ onLoginSuccess }: LoginProps) {
     }
 
 
-    async function handleSubmit (e: FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const newErrors: IFormErrorsLogin = {}
-
-        if(!formData.userName.trim()) {
-            newErrors.userName = "O nome do Usuário é obrigatótio"
+    
+        if (!formData.userName.trim()) {
+            newErrors.userName = "O nome do Usuário é obrigatório"
         }
-
-        if(!formData.password.trim()) {
+    
+        if (!formData.password.trim()) {
             newErrors.password = "A senha é obrigatória"
         }
-
-        if(Object.keys(newErrors).length > 0) {
+    
+        if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors)
             return
         }
+    
+        const response = await connection.postLogin(formData);
 
-        const response = await connection.postLogin(formData)
-
-        if(response === 200) {
-            clearValues()
-            onLoginSuccess()
+        if (response.status === 200 && response.userId) {
+            localStorage.setItem("@tasks-app:userId", response.userId);
+            clearValues();
+            onLoginSuccess();
         }
     }
 
